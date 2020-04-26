@@ -6,7 +6,7 @@ A small implementation for Markov chains for stock prediction.
 
 Structure for the stock file:
 
-Date,Open,High,Low,Close,Volume,OpenInt
+Date,Open,High,Low,Close,Volume,OpenInt  
 1999-11-18,30.713,33.754,27.002,29.702,66277506,0
 1999-11-19,28.986,29.027,26.872,27.257,16142920,0
 1999-11-22,27.886,29.702,27.044,29.702,6970266,0
