@@ -139,3 +139,6 @@ EFSs/
 #Protein files 
 *.faa
 
+
+#VS Code settings
+*.json 

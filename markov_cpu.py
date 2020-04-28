@@ -16,10 +16,12 @@ def make_matrix(m):
 
 
 class Markov:
+    """Class that implements a markov Chain for stock prediction"""
 
     def __init__(self, path, column, steps):
 
         arr = get_column(path,column)
+        # Making data to discrete steps
         data = stock_made_discrete(arr,steps)
 
         self.symbols = {}
@@ -27,6 +29,7 @@ class Markov:
         self.stochastic_matrix = None
         counter = -1
 
+        # Reading the chain , counting transitions and symbols  
         for i in tqdm(range(1,len(data)-1,1)):
 
             if data[i] not in self.symbols.keys():
@@ -60,14 +63,15 @@ class Markov:
         print(self.symbols)
 
     def make_stochastic_matrix(self):
+        """create stochastic matrix for predictions"""
 
         self.stochastic_matrix = cuda.to_device(self.stochastic_matrix)
-
         self.stochastic_matrix = make_matrix(self.transitions) 
 
         print(self.stochastic_matrix)      
     
     def predict_chain(self,init, count):
+        """make predictions for "count" paces"""
 
         history = []
 
@@ -78,7 +82,6 @@ class Markov:
             history.append(init)
 
         for index in range(len(init)):
-
             line = [h[index] for h in history]
             plt.plot(line,label=inv_map[index])
 
@@ -91,9 +94,9 @@ class Markov:
 
 if __name__ == "__main__":
 
-    m = Markov("Stocks/googl.us.txt","Close",50)
+    #initiate object for Markov chain  
+    m = Markov("Stocks/googl.us.txt","Close",10)
     m.make_stochastic_matrix()
-    while True:
 
     arr = np.arange(len(m.symbols))
     arr = arr/np.sum(arr)
